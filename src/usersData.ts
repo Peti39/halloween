@@ -2,6 +2,7 @@ const rootUrl = 'https://retoolapi.dev/iUvG5l/data';
 
 interface House{
     id: number;
+    name : string;
     address: string;
     sensitivities: string;
     hasCandy: boolean;
@@ -27,7 +28,7 @@ async function getHouseStats(): Promise<HouseStats> {
             }
         
     }
-    console.log("Sensitivities count:", sensitivitiesCount);
+    //console.log("Sensitivities count:", sensitivitiesCount);
     return {
         totalHouses,
         housesWithCandy,

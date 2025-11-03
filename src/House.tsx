@@ -3,19 +3,23 @@ import { changeCandyStatus } from "./usersData";
 
 
 
-function imegizeSensitivities(sensitivities: string[]) {
-    const sensitivityMap : Record<string,string> = {
-        glutén : "🌾",
-        laktóz : "🥛",
-        diófélék : "🥜",
-        tojás : "🥚"
+function imegizeSensitivities(sensitivities: string) {
+    switch (sensitivities) {
+        case "glutén":
+            return "gluten🌾";
+        case "laktóz":
+            return "lactose🥛";
+        case "diófélék":
+            return "nuts🥜";
+        case "tojás":
+            return "egg🥚";
+        default:
+            return sensitivities;
     }
-    return sensitivities.map(s => sensitivityMap[s] || s).join(" ");
-
     
 }
 
-export function House(props: {id: number, address: string, sensitivities: string[], hasCandy: boolean}) {
+export function House(props: {id: number, name: string,address: string, sensitivities: string, hasCandy: boolean}) {
 
     const [candyStatus, setCandyStatus] = useState(props.hasCandy);
 
@@ -27,8 +31,9 @@ export function House(props: {id: number, address: string, sensitivities: string
     return (
         <div className="house-card">
             <h2>{props.address}</h2>
-            <p>Sensitivities: {imegizeSensitivities(props.sensitivities)}</p>
-            <p>{candyStatus ? "Has Candy" : "No Candy"}</p>
+            <h3>{props.name}</h3>
+            <p className="sens">Sensitivities: {imegizeSensitivities(props.sensitivities)}</p>
+            <p className={candyStatus ? "hasCandy" : "noCandy"}>{candyStatus ? "Has Candy" : "No Candy"}</p>
             <button onClick={handleChangeCandyStatus}>{props.hasCandy ? "Ran out" : "Refilled"}</button>            
         </div>
     );
